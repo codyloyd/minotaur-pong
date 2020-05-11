@@ -1,4 +1,4 @@
-import {Game} from 'tiny-game'
+import {Game} from '@codyloyd/tiny-game'
 import {createBall} from './ball'
 import {createPaddle} from './paddle'
 
