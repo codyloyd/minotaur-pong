@@ -1,56 +1,35 @@
-import {game} from './index'
-
-const createPaddle = function(x,y,w,h=4) {
-  let dx = 0 
-  let rightIsDown = false
-  let leftIsDown = false
-
-  const onkeydown = function(key) {
-    if(key=='ArrowRight') {
-      rightIsDown = true
-    } else if(key=='ArrowLeft') {
-      leftIsDown = true
-    }
+class Paddle {
+  constructor(x, y, w, h) {
+    this.x = x
+    this.y = y
+    this.w = w
+    this.h = h
+    this.vy = 0
   }
-
-  const onkeyup = function(key) {
-    if(key=='ArrowRight') {
-      rightIsDown = false
-    } else if(key=='ArrowLeft') {
-      leftIsDown = false
+  update(dt, isDown, height) {
+    this.vy = 0
+    if (isDown.ArrowDown) {
+      this.vy = 180
     }
+    if (isDown.ArrowUp) {
+      this.vy = -180
+    }
+
+    if (this.y < 0) {
+      this.vy = 0
+      this.y = 0
+    }
+    if(this.y > height - this.h) {
+      this.vy = 0
+      this.y = height - this.h 
+    }
+
+    this.y += this.vy * dt
   }
-
-  const update  = function(dt) {
-    const prevX = this.x
-
-    const dir = Math.sign(this.dx)
-    const lowerDx = Math.max(0, (Math.abs(this.dx) - (200 * dt))) * dir
-    this.dx = lowerDx
-    if (leftIsDown) {
-      this.dx = -80
-    }
-    if (rightIsDown) {
-      this.dx = 80
-    }
-    if(leftIsDown && rightIsDown) {
-      this.dx = lowerDx
-    }
-
-    this.x += (this.dx * dt)
-
-    if(this.x > game.width-this.w || this.x < 0) {
-      this.dx = 0
-      this.x = prevX
-    }
+  draw(context) {
+    context.fillStyle = "#eae2b7"
+    context.fillRect(this.x, this.y, this.w, this.h)
   }
-
-  const draw = function() {
-    game.context.fillStyle = "#a44"
-    game.context.fillRect(this.x,this.y,this.w,this.h)
-  }
-
-  return{dx,x,y,w,h,update,draw, onkeydown, onkeyup}
 }
 
-export {createPaddle}
+export {Paddle}
