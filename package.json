@@ -10,7 +10,7 @@
   "author": "Cody Loyd <codyloyd@gmail.com> (https://codyloyd.com/)",
   "license": "MIT",
   "devDependencies": {
-    "webpack": "4.43.0",
+    "webpack": "5.94.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.11.0"
   },
